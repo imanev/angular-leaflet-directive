@@ -24,6 +24,8 @@ module.exports = function (grunt, options) {
                 L: false,
                 lvector: false,
                 cartodb: false,
+                PruneCluster: false,
+                PruneClusterForLeaflet: false,
                 // Jasmine
                 jasmine    : false,
                 isCommonJS : false,

@@ -33,7 +33,9 @@
     "proj4leaflet": "*",
     "Leaflet.MakiMarkers": "*",
     "Leaflet.PolylineDecorator": "bbecquet/Leaflet.PolylineDecorator",
-    "ionrangeslider": "~1.9.3"
+    "ionrangeslider": "~1.9.3",
+    "Leaflet.fullscreen": "*",
+    "PruneCluster": "*"
   },
   "overrides": {
     "Leaflet.utfgrid": {

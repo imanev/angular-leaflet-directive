@@ -9,6 +9,7 @@ angular.module("leaflet-directive", []).directive('leaflet', function ($q, leafl
             maxbounds      : '=maxbounds',
             bounds         : '=bounds',
             markers        : '=markers',
+            prunemarkers: '=markers',
             legend         : '=legend',
             geojson        : '=geojson',
             paths          : '=paths',
@@ -36,7 +37,6 @@ angular.module("leaflet-directive", []).directive('leaflet', function ($q, leafl
                 defaults = leafletMapDefaults.setDefaults(scope.defaults, attrs.id),
                 genDispatchMapEvent = leafletEvents.genDispatchMapEvent,
                 mapEvents = leafletEvents.getAvailableMapEvents();
-
             // Set width and height if they are defined
             if (isDefined(attrs.width)) {
                 if (isNaN(attrs.width)) {

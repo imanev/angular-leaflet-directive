@@ -178,6 +178,65 @@ angular.module("leaflet-directive").factory('leafletLayerHelpers', function ($ro
                 return new L.MarkerClusterGroup(params.options);
             }
         },
+        prunecluster: {
+            mustHaveUrl: false,
+            createLayer: function (params) {
+                if (!Helpers.PruneClusterPlugin.isLoaded()) {
+                    $log.error('[AngularJS - Leaflet] The prunecluster plugin is not loaded.');
+                    return;
+                }
+
+                var size, clusterMargin;
+                if (isDefined(params.options))
+                {
+                    if (isDefined(params.options.size))
+                    {
+                        size = params.options.size;
+                    }
+                    if (isDefined(params.options.clusterMargin)) {
+                        clusterMargin = params.options.clusterMargin;
+                    }
+                }
+                var cluster;
+                if (isDefined(size) && isDefined(clusterMargin)) {
+                    cluster = new PruneClusterForLeaflet(size, clusterMargin);
+                }
+                else
+                {
+                    cluster = new PruneClusterForLeaflet();
+                }
+                
+                if (isDefined(params.options.icon)) {
+                    cluster.BuildLeafletClusterIcon = params.options.icon;
+                }
+
+                if (isDefined(params.options.marker)) {
+                    cluster.BuildLeafletMarker = params.options.marker;
+                }
+                else {
+                    cluster.BuildLeafletMarker = function (marker, position) {
+                        var m = new L.Marker(position);
+                        var path = marker.data.path;
+                        var pline;
+
+                        if (path) {
+                            m.on('add', function () {
+                                pline = new L.Polyline(path.pointList, path.options);
+                                pline.addTo(this._map);
+                            });
+                            m.on('remove', function () {
+                                this._map.removeLayer(pline);
+                            });
+                        }
+
+                        this.PrepareLeafletMarker(m, marker.data, marker.category);
+                        return m;
+                    };
+                }
+
+                return cluster;
+            }
+        },
         bing: {
             mustHaveUrl: false,
             createLayer: function(params) {

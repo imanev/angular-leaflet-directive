@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html ng-app="demoapp">
+<head>
+    <script src="../bower_components/angular/angular.js"></script>
+    <script src="../bower_components/leaflet/dist/leaflet-src.js"></script>
+    <script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.3/Leaflet.fullscreen.min.js'></script>
+    <script src="../bower_components/PruneCluster/dist/PruneCluster.js"></script>
+    <!--<script src="../bower_components/leaflet.markercluster/dist/leaflet.markercluster-src.js"></script>-->
+    <script src="../src/directives/leaflet.js"></script>
+    <script src="../src/directives/bounds.js"></script>
+    <script src="../src/directives/center.js"></script>
+    <script src="../src/directives/controls.js"></script>
+    <script src="../src/directives/decorations.js"></script>
+    <script src="../src/directives/eventBroadcast.js"></script>
+    <script src="../src/directives/geojson.js"></script>
+    <script src="../src/directives/layers.js"></script>
+    <script src="../src/directives/legend.js"></script>
+    <!--<script src="../src/directives/markers.js"></script>-->
+    <script src="../src/directives/prunemarkers.js"></script>
+    <script src="../src/directives/maxbounds.js"></script>
+    <script src="../src/directives/paths.js"></script>
+    <script src="../src/directives/tiles.js"></script>
+
+    <script src="../src/services/leafletHelpers.js"></script>
+    <script src="../src/services/leafletData.js"></script>
+    <script src="../src/services/leafletMapDefaults.js"></script>
+    <script src="../src/services/leafletEvents.js"></script>
+    <script src="../src/services/leafletBoundsHelpers.js"></script>
+    <script src="../src/services/leafletControlHelpers.js"></script>
+    <script src="../src/services/leafletLayerHelpers.js"></script>
+    <script src="../src/services/leafletLegendHelpers.js"></script>
+    <script src="../src/services/leafletMarkersHelpers.js"></script>
+    <script src="../src/services/leafletPathsHelpers.js"></script>
+
+    <script src="realworld.10000.js"></script>
+
+    <link rel="stylesheet" href="../bower_components/leaflet/dist/leaflet.css" />
+    <link href='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v0.0.3/leaflet.fullscreen.css' rel='stylesheet' />
+    <link rel="stylesheet" href="../bower_components/PruneCluster/dist/LeafletStyleSheet.css" />
+    <!--<link rel="stylesheet" href="../bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="../bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css" />-->
+    <script>
+        var app = angular.module("demoapp", ['leaflet-directive']);
+        app.controller("DemoController", ["$scope", function ($scope) {
+            angular.extend($scope, {
+                fullscreenControl: true,
+                center: {
+                    lat: addressPoints[0][0],
+                    lng: addressPoints[0][1],
+                    zoom: 10
+                },
+                prunemarkers: {
+                    taipei: {
+                        layer: "northTaiwan",
+                        lat: addressPoints[0][0],
+                        lng: addressPoints[0][1],
+                        data: {
+                            popup: "Roger",
+                            //icon: L.icon({
+                            //    iconUrl: Math.random() > 0.5 ? 'helicopter.png' : 'airplane.png',
+                            //    iconSize: [48, 48]
+                            //}
+                            path: {
+                                pointList: [
+                                    new L.LatLng(addressPoints[3][0], addressPoints[3][1]),
+                                    new L.LatLng(addressPoints[2][0], addressPoints[2][1]),
+                                    new L.LatLng(addressPoints[1][0], addressPoints[1][1]),
+                                    new L.LatLng(addressPoints[0][0], addressPoints[0][1])],
+                                options: {
+                                    color: 'red',
+                                    weight: 3,
+                                    opacity: 0.5,
+                                    smoothFactor: 1
+                                }
+                            }
+                        }
+                    },
+                    taipei1: {
+                        layer: "northTaiwan",
+                        lat: addressPoints[4][0],
+                        lng: addressPoints[4][1],
+                        data: {
+                            popup: "Roger",
+                            //icon: L.icon({
+                            //    iconUrl: Math.random() > 0.5 ? 'helicopter.png' : 'airplane.png',
+                            //    iconSize: [48, 48]
+                            //}
+                            path: {
+                                pointList: [
+                                    new L.LatLng(addressPoints[7][0], addressPoints[7][1]),
+                                    new L.LatLng(addressPoints[6][0], addressPoints[6][1]),
+                                    new L.LatLng(addressPoints[5][0], addressPoints[5][1]),
+                                    new L.LatLng(addressPoints[4][0], addressPoints[4][1])],
+                                options: {
+                                    color: 'red',
+                                    weight: 3,
+                                    opacity: 0.5,
+                                    smoothFactor: 1
+                                }
+                            }
+                        }
+                    }
+                },
+                layers: {
+                    baselayers: {
+                        mapboxFast: {
+                            name: 'Mapbox fast',
+                            type: 'xyz',
+                            url: 'https://{s}.tiles.mapbox.com/v3/examples.h186knp8/{z}/{x}/{y}.png',
+                            layerOptions: {
+                                attribution: '<a href="http://www.mapbox.com/about/maps/" target="_blank">Terms &amp; Feedback</a>'
+                            }
+                        }
+                    },
+                    overlays: {
+                        northTaiwan: {
+                            name: "North cities",
+                            type: "prunecluster",
+                            visible: true
+                        }
+                    }
+                }
+            });
+        }]);
+    </script>
+    <style>
+        .angular-leaflet-map {
+            width: 100%;
+            height: 320px;
+        }
+
+        .left {
+            float: left;
+            width: 58%;
+            padding-right: 1em;
+        }
+
+        .right {
+            float: right;
+            width: 40%;
+        }
+    </style>
+</head>
+<body ng-controller="DemoController">
+    <leaflet center="center" prunemarkers="prunemarkers" layers="layers"></leaflet>
+    <h1>Marker clustering example</h1>
+</body>
+</html>

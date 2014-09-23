@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{150F02C2-D194-47DD-B36E-F868ABEF6CEC}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>angular_leaflet_directive1</RootNamespace>
+    <AssemblyName>angular-leaflet-directive1</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TypeScriptToolsVersion>1.0</TypeScriptToolsVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bower.json" />
+    <Content Include="bower_components\angular-animate\angular-animate.js" />
+    <Content Include="bower_components\angular-mocks\angular-mocks.js" />
+    <Content Include="bower_components\angular-route\angular-route.js" />
+    <Content Include="bower_components\angular\angular.js" />
+    <Content Include="bower_components\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="bower_components\Leaflet.awesome-markers\dist\leaflet.awesome-markers.css" />
+    <Content Include="bower_components\Leaflet.awesome-markers\dist\leaflet.awesome-markers.js" />
+    <Content Include="bower_components\Leaflet.MakiMarkers\Leaflet.MakiMarkers.js" />
+    <Content Include="bower_components\leaflet.markercluster\dist\leaflet.markercluster-src.js" />
+    <Content Include="bower_components\leaflet.markercluster\dist\MarkerCluster.css" />
+    <Content Include="bower_components\leaflet.markercluster\dist\MarkerCluster.Default.css" />
+    <Content Include="bower_components\Leaflet.PolylineDecorator\leaflet.polylineDecorator.js" />
+    <Content Include="bower_components\Leaflet.PruneCluster\dist\LeafletStyleSheet.css" />
+    <Content Include="bower_components\Leaflet.PruneCluster\dist\PruneCluster.js" />
+    <Content Include="bower_components\Leaflet.utfgrid\dist\leaflet.utfgrid-src.js" />
+    <Content Include="bower_components\leaflet\dist\leaflet-src.js" />
+    <Content Include="bower_components\leaflet\dist\leaflet.css" />
+    <Content Include="CHANGELOG.md" />
+    <Content Include="CONTRIBUTING.md" />
+    <Content Include="dist\angular-leaflet-directive.js" />
+    <Content Include="dist\angular-leaflet-directive.min.js" />
+    <Content Include="dist\angular-leaflet-directive.min.no-header.js" />
+    <Content Include="dist\angular-leaflet-directive.pre.js" />
+    <Content Include="examples\json\all.json" />
+    <Content Include="examples\json\countries.geo.json" />
+    <Content Include="examples\json\JPN.geo.json" />
+    <Content Include="examples\json\README" />
+    <Content Include="examples\markers-clustering-example.html" />
+    <Content Include="LICENSE" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="examples\access-leaflet-object-example.html" />
+    <Content Include="examples\add-remove-map-example.html" />
+    <Content Include="examples\bounds-example.html" />
+    <Content Include="examples\center-autodiscover-example.html" />
+    <Content Include="examples\center-example.html" />
+    <Content Include="examples\control-draw-example.html" />
+    <Content Include="examples\custom-parameters-example.html" />
+    <Content Include="examples\decorations-simple-example.html" />
+    <Content Include="examples\double-map-events-example.html" />
+    <Content Include="examples\double-map-example.html" />
+    <Content Include="examples\esri-dynamiclayer-example.html" />
+    <Content Include="examples\esri-legend-example.html" />
+    <Content Include="examples\events-example.html" />
+    <Content Include="examples\geojson-center-example.html" />
+    <Content Include="examples\geojson-example.html" />
+    <Content Include="examples\geojson-external-update-example.html" />
+    <Content Include="examples\geojson-layers-example.html" />
+    <Content Include="examples\googlemaps-example.html" />
+    <Content Include="examples\googlemaps-fullsize-example.html" />
+    <Content Include="examples\heatmap-example.html" />
+    <Content Include="examples\hide-show-map.html" />
+    <Content Include="examples\image-overlay-example.html" />
+    <Content Include="examples\img\100x100_PNG\bigben100.png" />
+    <Content Include="examples\img\100x100_PNG\colosseum100.png" />
+    <Content Include="examples\img\100x100_PNG\egypt100.png" />
+    <Content Include="examples\img\100x100_PNG\eiffel100.png" />
+    <Content Include="examples\img\100x100_PNG\liberty100.png" />
+    <Content Include="examples\img\100x100_PNG\tajmahal100.png" />
+    <Content Include="examples\img\andes.jpg" />
+    <Content Include="examples\img\leaf-green.png" />
+    <Content Include="examples\img\leaf-orange.png" />
+    <Content Include="examples\img\leaf-shadow.png" />
+    <Content Include="examples\img\San-francisco-map.png" />
+    <Content Include="examples\layers-add-remove.html" />
+    <Content Include="examples\layers-example.html" />
+    <Content Include="examples\layers-imageoverlay-example.html" />
+    <Content Include="examples\layers-simple-example.html" />
+    <Content Include="examples\legend-example.html" />
+    <Content Include="examples\map-events-selection-example.html" />
+    <Content Include="examples\map-without-animations-example.html" />
+    <Content Include="examples\mapbox-example.html" />
+    <Content Include="examples\marker-add-example.html" />
+    <Content Include="examples\marker-events-example.html" />
+    <Content Include="examples\marker-example.html" />
+    <Content Include="examples\marker-label-example.html" />
+    <Content Include="examples\markers-add-example.html" />
+    <Content Include="examples\markers-clustering-10000.html" />
+    <Content Include="examples\prunemarkers-clustering-example.html" />
+    <Content Include="examples\markers-clustering-without-overlays-example.html" />
+    <Content Include="examples\markers-delayed-events-example.html" />
+    <Content Include="examples\markers-dynamic-addremove-example.html" />
+    <Content Include="examples\markers-events-example.html" />
+    <Content Include="examples\markers-example.html" />
+    <Content Include="examples\markers-groups-example.html" />
+    <Content Include="examples\markers-icon-example.html" />
+    <Content Include="examples\markers-label-example.html" />
+    <Content Include="examples\markers-rotation-example.html" />
+    <Content Include="examples\markers-simple-example.html" />
+    <Content Include="examples\markers-update-example.html" />
+    <Content Include="examples\maxbounds-example.html" />
+    <Content Include="examples\overlays-example.html" />
+    <Content Include="examples\overlays-markercluster-example.html" />
+    <Content Include="examples\overlays-markers-example.html" />
+    <Content Include="examples\overlays-paths-example.html" />
+    <Content Include="examples\overlays-simple-example.html" />
+    <Content Include="examples\paths-example.html" />
+    <Content Include="examples\paths-simple-example.html" />
+    <Content Include="examples\paths-types-example.html" />
+    <Content Include="examples\realworld.10000.js" />
+    <Content Include="examples\simple-example.html" />
+    <Content Include="examples\tiles-example.html" />
+    <Content Include="examples\tiles-zoom-changer-example.html" />
+    <Content Include="examples\url-hash-center-example.html" />
+    <Content Include="examples\utfgrid-example.html" />
+    <Content Include="examples\wms-with-different-projection-example.html" />
+    <Content Include="examples\yandexmaps-example.html" />
+    <Content Include="Gruntfile.js" />
+    <Content Include="src\directives\bounds.js" />
+    <Content Include="src\directives\center.js" />
+    <Content Include="src\directives\prunemarkers.js" />
+    <Content Include="src\directives\controls.js" />
+    <Content Include="src\directives\decorations.js" />
+    <Content Include="src\directives\eventBroadcast.js" />
+    <Content Include="src\directives\geojson.js" />
+    <Content Include="src\directives\layers.js" />
+    <Content Include="src\directives\leaflet.js" />
+    <Content Include="src\directives\legend.js" />
+    <Content Include="src\directives\markers.js" />
+    <Content Include="src\directives\maxbounds.js" />
+    <Content Include="src\directives\paths.js" />
+    <Content Include="src\directives\tiles.js" />
+    <Content Include="src\header-MIT-license.txt" />
+    <Content Include="src\services\leafletBoundsHelpers.js" />
+    <Content Include="src\services\leafletControlHelpers.js" />
+    <Content Include="src\services\leafletData.js" />
+    <Content Include="src\services\leafletEvents.js" />
+    <Content Include="src\services\leafletHelpers.js" />
+    <Content Include="src\services\leafletLayerHelpers.js" />
+    <Content Include="src\services\leafletLegendHelpers.js" />
+    <Content Include="src\services\leafletMapDefaults.js" />
+    <Content Include="src\services\leafletMarkersHelpers.js" />
+    <Content Include="src\services\leafletPathsHelpers.js" />
+    <None Include="src\_references.js" />
+    <Content Include="test\e2e\00-simple-example.js" />
+    <Content Include="test\e2e\01-center-example.js" />
+    <Content Include="test\e2e\02-marker-add-example.js" />
+    <Content Include="test\e2e\03-bounds-example.js" />
+    <Content Include="test\e2e\04-custom-parameters-example.js" />
+    <Content Include="test\e2e\05-googlemaps-example.js" />
+    <Content Include="test\e2e\06-maxbounds-example.js" />
+    <Content Include="test\e2e\07-tiles-example.js" />
+    <Content Include="test\e2e\08-tiles-zoom-changer-example.js" />
+    <Content Include="test\e2e\09-layers-simple-example.js" />
+    <Content Include="test\e2e\10-overlays-simple-example.js" />
+    <Content Include="test\e2e\11-imageoverlay-example.js" />
+    <Content Include="test\e2e\12-paths-types-example.js" />
+    <Content Include="test\e2e\13-url-hash-center-example.js" />
+    <Content Include="test\karma-unit.conf.js" />
+    <Content Include="test\protractor.conf.js" />
+    <Content Include="test\unit\boundsDirectiveSpec.js" />
+    <Content Include="test\unit\centerDirectiveSpec.js" />
+    <Content Include="test\unit\decorationsDirectiveSpec.js" />
+    <Content Include="test\unit\eventsDirectiveSpec.js" />
+    <Content Include="test\unit\geojsonDirectiveSpec.js" />
+    <Content Include="test\unit\layersDirectiveSpec.js" />
+    <Content Include="test\unit\leafletDirectiveSpec.js" />
+    <Content Include="test\unit\markersDirectiveSpec.js" />
+    <Content Include="test\unit\maxboundsDirectiveSpec.js" />
+    <Content Include="test\unit\pathsDirectiveSpec.js" />
+    <Content Include="test\unit\tilesDirectiveSpec.js" />
+    <Content Include="Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.targets')" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>53412</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:53412/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

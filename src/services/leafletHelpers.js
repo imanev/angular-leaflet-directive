@@ -241,6 +241,18 @@ angular.module("leaflet-directive").factory('leafletHelpers', function ($q, $log
                 }
             }
         },
+        PruneClusterPlugin: {
+            isLoaded: function () {
+                return angular.isDefined(PruneClusterForLeaflet);
+            },
+            is: function (layer) {
+                if (this.isLoaded()) {
+                    return layer instanceof PruneClusterForLeaflet;
+                } else {
+                    return false;
+                }
+            }
+        },
         GoogleLayerPlugin: {
             isLoaded: function() {
                 return angular.isDefined(L.Google);

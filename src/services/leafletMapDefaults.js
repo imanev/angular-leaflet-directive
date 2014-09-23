@@ -11,6 +11,7 @@ angular.module("leaflet-directive").factory('leafletMapDefaults', function ($q, 
             zoomsliderControl: false,
             zoomControlPosition: 'topleft',
             attributionControl: true,
+            fullscreenControl: true,
             controls: {
                 layers: {
                     visible: true,
@@ -61,6 +62,7 @@ angular.module("leaflet-directive").factory('leafletMapDefaults', function ($q, 
                 scrollWheelZoom: d.scrollWheelZoom,
                 touchZoom: d.touchZoom,
                 attributionControl: d.attributionControl,
+                fullscreenControl: d.fullscreenControl,
                 worldCopyJump: d.worldCopyJump,
                 crs: d.crs
             };
@@ -100,6 +102,7 @@ angular.module("leaflet-directive").factory('leafletMapDefaults', function ($q, 
                 newDefaults.zoomControl = isDefined(userDefaults.zoomControl) ? userDefaults.zoomControl : newDefaults.zoomControl;
                 newDefaults.zoomsliderControl = isDefined(userDefaults.zoomsliderControl) ? userDefaults.zoomsliderControl : newDefaults.zoomsliderControl;
                 newDefaults.attributionControl = isDefined(userDefaults.attributionControl) ? userDefaults.attributionControl : newDefaults.attributionControl;
+                newDefaults.fullscreenControl = isDefined(userDefaults.fullscreenControl) ? userDefaults.fullscreenControl : newDefaults.fullscreenControl;
                 newDefaults.tileLayer = isDefined(userDefaults.tileLayer) ? userDefaults.tileLayer : newDefaults.tileLayer;
                 newDefaults.zoomControlPosition = isDefined(userDefaults.zoomControlPosition) ? userDefaults.zoomControlPosition : newDefaults.zoomControlPosition;
                 newDefaults.keyboard = isDefined(userDefaults.keyboard) ? userDefaults.keyboard : newDefaults.keyboard;

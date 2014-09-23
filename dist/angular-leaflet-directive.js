@@ -13,6 +13,7 @@ angular.module("leaflet-directive", []).directive('leaflet', ["$q", "leafletData
             maxbounds      : '=maxbounds',
             bounds         : '=bounds',
             markers        : '=markers',
+            prunemarkers: '=markers',
             legend         : '=legend',
             geojson        : '=geojson',
             paths          : '=paths',
@@ -40,7 +41,6 @@ angular.module("leaflet-directive", []).directive('leaflet', ["$q", "leafletData
                 defaults = leafletMapDefaults.setDefaults(scope.defaults, attrs.id),
                 genDispatchMapEvent = leafletEvents.genDispatchMapEvent,
                 mapEvents = leafletEvents.getAvailableMapEvents();
-
             // Set width and height if they are defined
             if (isDefined(attrs.width)) {
                 if (isNaN(attrs.width)) {
@@ -875,6 +875,66 @@ angular.module("leaflet-directive").directive('markers', ["$log", "$rootScope", 
     };
 }]);
 
+angular.module("leaflet-directive").directive('prunemarkers', ["$log", "$rootScope", "$q", "leafletData", "leafletHelpers", function ($log, $rootScope, $q, leafletData, leafletHelpers) {
+    return {
+        restrict: "A",
+        scope: false,
+        replace: false,
+        require: ['leaflet', 'layers'],
+
+        link: function (scope, element, attrs, controller) {
+            if (!leafletHelpers.PruneClusterPlugin.isLoaded()) {
+                $log.error("[AngularJS - Leaflet] The PruneCluster plugin is not loaded.");
+                return;
+            }
+
+
+            var mapController = controller[0],
+                isDefined = leafletHelpers.isDefined;
+
+            mapController.getMap().then(function () {
+                var getLayers;
+
+                // If the layers attribute is used, we must wait until the layers are created
+                if (isDefined(controller[1])) {
+                    getLayers = controller[1].getLayers;
+                }
+                else {
+                    getLayers = function () {
+                        var deferred = $q.defer();
+                        deferred.resolve();
+                        return deferred.promise;
+                    };
+                }
+
+                var getPruneLayer = function (markerData, layers) {
+                    if (isDefined(layers) && isDefined(layers.overlays) &&
+                        isDefined(markerData.layer) && isDefined(layers.overlays[markerData.layer])) {
+                        return layers.overlays[markerData.layer];
+                    }
+                    else {
+                        $log.error('[AngularJS - Leaflet] Unable to retrieve prune cluster layer');
+                    }
+                };
+
+                getLayers().then(function (layers) {
+                    var pruneMarkers = scope.prunemarkers;
+
+                    for (var name in pruneMarkers) {
+                        var pruneMarker = pruneMarkers[name];
+                        var pruneLayer = getPruneLayer(pruneMarker, layers);
+
+                        pruneLayer.RegisterMarker(
+                            new PruneCluster.Marker(pruneMarker.lat,
+                            pruneMarker.lng, pruneMarker.data, pruneMarker.category,
+                            pruneMarker.weidht, pruneMarker.filtered));
+                    }
+                });
+            });
+        }
+    };
+}]);
+
 angular.module("leaflet-directive").directive('paths', ["$log", "$q", "leafletData", "leafletMapDefaults", "leafletHelpers", "leafletPathsHelpers", "leafletEvents", function ($log, $q, leafletData, leafletMapDefaults, leafletHelpers, leafletPathsHelpers, leafletEvents) {
     return {
         restrict: "A",
@@ -1619,6 +1679,7 @@ angular.module("leaflet-directive").factory('leafletMapDefaults', ["$q", "leafle
             zoomsliderControl: false,
             zoomControlPosition: 'topleft',
             attributionControl: true,
+            fullscreenControl: true,
             controls: {
                 layers: {
                     visible: true,
@@ -1669,6 +1730,7 @@ angular.module("leaflet-directive").factory('leafletMapDefaults', ["$q", "leafle
                 scrollWheelZoom: d.scrollWheelZoom,
                 touchZoom: d.touchZoom,
                 attributionControl: d.attributionControl,
+                fullscreenControl: d.fullscreenControl,
                 worldCopyJump: d.worldCopyJump,
                 crs: d.crs
             };
@@ -1708,6 +1770,7 @@ angular.module("leaflet-directive").factory('leafletMapDefaults', ["$q", "leafle
                 newDefaults.zoomControl = isDefined(userDefaults.zoomControl) ? userDefaults.zoomControl : newDefaults.zoomControl;
                 newDefaults.zoomsliderControl = isDefined(userDefaults.zoomsliderControl) ? userDefaults.zoomsliderControl : newDefaults.zoomsliderControl;
                 newDefaults.attributionControl = isDefined(userDefaults.attributionControl) ? userDefaults.attributionControl : newDefaults.attributionControl;
+                newDefaults.fullscreenControl = isDefined(userDefaults.fullscreenControl) ? userDefaults.fullscreenControl : newDefaults.fullscreenControl;
                 newDefaults.tileLayer = isDefined(userDefaults.tileLayer) ? userDefaults.tileLayer : newDefaults.tileLayer;
                 newDefaults.zoomControlPosition = isDefined(userDefaults.zoomControlPosition) ? userDefaults.zoomControlPosition : newDefaults.zoomControlPosition;
                 newDefaults.keyboard = isDefined(userDefaults.keyboard) ? userDefaults.keyboard : newDefaults.keyboard;
@@ -2372,6 +2435,65 @@ angular.module("leaflet-directive").factory('leafletLayerHelpers', ["$rootScope"
                     return;
                 }
                 return new L.MarkerClusterGroup(params.options);
+            }
+        },
+        prunecluster: {
+            mustHaveUrl: false,
+            createLayer: function (params) {
+                if (!Helpers.PruneClusterPlugin.isLoaded()) {
+                    $log.error('[AngularJS - Leaflet] The prunecluster plugin is not loaded.');
+                    return;
+                }
+
+                var size, clusterMargin;
+                if (isDefined(params.options))
+                {
+                    if (isDefined(params.options.size))
+                    {
+                        size = params.options.size;
+                    }
+                    if (isDefined(params.options.clusterMargin)) {
+                        clusterMargin = params.options.clusterMargin;
+                    }
+                }
+                var cluster;
+                if (isDefined(size) && isDefined(clusterMargin)) {
+                    cluster = new PruneClusterForLeaflet(size, clusterMargin);
+                }
+                else
+                {
+                    cluster = new PruneClusterForLeaflet();
+                }
+                
+                if (isDefined(params.options.icon)) {
+                    cluster.BuildLeafletClusterIcon = params.options.icon;
+                }
+
+                if (isDefined(params.options.marker)) {
+                    cluster.BuildLeafletMarker = params.options.marker;
+                }
+                else {
+                    cluster.BuildLeafletMarker = function (marker, position) {
+                        var m = new L.Marker(position);
+                        var path = marker.data.path;
+                        var pline;
+
+                        if (path) {
+                            m.on('add', function () {
+                                pline = new L.Polyline(path.pointList, path.options);
+                                pline.addTo(this._map);
+                            });
+                            m.on('remove', function () {
+                                this._map.removeLayer(pline);
+                            });
+                        }
+
+                        this.PrepareLeafletMarker(m, marker.data, marker.category);
+                        return m;
+                    };
+                }
+
+                return cluster;
             }
         },
         bing: {
@@ -3550,6 +3672,18 @@ angular.module("leaflet-directive").factory('leafletHelpers', ["$q", "$log", fun
             is: function(layer) {
                 if (this.isLoaded()) {
                     return layer instanceof L.MarkerClusterGroup;
+                } else {
+                    return false;
+                }
+            }
+        },
+        PruneClusterPlugin: {
+            isLoaded: function () {
+                return angular.isDefined(PruneClusterForLeaflet);
+            },
+            is: function (layer) {
+                if (this.isLoaded()) {
+                    return layer instanceof PruneClusterForLeaflet;
                 } else {
                     return false;
                 }
